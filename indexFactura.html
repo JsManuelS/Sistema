@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura Electrónica Editable</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="./src/css/stylesFactura.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Sistema de Generación de Facturas</h1>
+        
+        <div class="tabs">
+            <div class="tab active" data-tab="form">Editar Datos</div>
+            <div class="tab" data-tab="preview">Vista Previa</div>
+        </div>
+        
+        <div id="form" class="tab-content active form-container">
+            <h2>Datos de la Factura</h2>
+            <form id="facturaForm">
+                <h3>Datos del Emisor</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="emisorNombre">Nombre/Empresa</label>
+                        <input type="text" id="emisorNombre" value="NOTICIERO CONTABLE">
+                    </div>
+                    <div class="form-group">
+                        <label for="emisorRazon">Razón Social</label>
+                        <input type="text" id="emisorRazon" value="NOTICIERO DEL CONTADOR S.A.C.">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="emisorDireccion">Dirección</label>
+                    <input type="text" id="emisorDireccion" value="CAL. MARTIR OLAYA 129 DPTO. 1107 ALT CDRA. 01 DE AV. PARDO">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="emisorUbicacion">Ubicación</label>
+                        <input type="text" id="emisorUbicacion" value="MIRAFLORES - LIMA - LIMA">
+                    </div>
+                    <div class="form-group">
+                        <label for="emisorRUC">RUC</label>
+                        <input type="text" id="emisorRUC" value="20556106909">
+                    </div>
+                </div>
+
+                <h3>Datos de la Factura</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="facturaNumero">Número de Factura</label>
+                        <input type="text" id="facturaNumero" value="E001-1213">
+                    </div>
+                    <div class="form-group">
+                        <label for="formaPago">Forma de Pago</label>
+                        <select id="formaPago">
+                            <option value="Contado">Contado</option>
+                            <option value="Crédito" selected>Crédito</option>
+                            <option value="Transferencia">Transferencia</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fechaEmision">Fecha de Emisión</label>
+                        <input type="date" id="fechaEmision" value="2021-10-05">
+                    </div>
+                    <div class="form-group">
+                        <label for="fechaVencimiento">Fecha de Vencimiento</label>
+                        <input type="date" id="fechaVencimiento" value="2021-11-04">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="moneda">Tipo de Moneda</label>
+                        <select id="moneda">
+                            <option value="SOLES" selected>SOLES</option>
+                            <option value="DOLARES">DÓLARES</option>
+                            <option value="EUROS">EUROS</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="detraccionPorcentaje">Detracción (%)</label>
+                        <input type="number" id="detraccionPorcentaje" value="12" min="0" max="100">
+                    </div>
+                </div>
+
+                <h3>Datos del Cliente</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="clienteNombre">Señor(es)</label>
+                        <input type="text" id="clienteNombre" value="ESTUDIO FERN E.I.R.L.">
+                    </div>
+                    <div class="form-group">
+                        <label for="clienteRUC">RUC</label>
+                        <input type="text" id="clienteRUC" value="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="clienteDireccionReceptor">Dirección del Receptor de la factura</label>
+                    <input type="text" id="clienteDireccionReceptor" value="">
+                </div>
+                <div class="form-group">
+                    <label for="clienteDireccion">Dirección del Cliente</label>
+                    <input type="text" id="clienteDireccion" value="">
+                </div>
+
+                <h3>Detalle de Productos/Servicios</h3>
+                <div id="itemsContainer" class="items-container">
+                    <div class="item-row">
+                        <input type="number" class="item-cantidad" placeholder="Cantidad" value="1.00" step="0.01">
+                        <input type="text" class="item-unidad" placeholder="Unidad" value="UNIDAD">
+                        <input type="text" class="item-codigo" placeholder="Código" value="CONTABILIDAD">
+                        <input type="text" class="item-descripcion" placeholder="Descripción" value="SERVICIO DE CONTABILIDAD MES SETIEMBRE 2021">
+                        <input type="number" class="item-valor" placeholder="Valor" value="1000.00" step="0.01">
+                        <input type="number" class="item-icbper" placeholder="ICBPER" value="0.00" step="0.01">
+                        <button type="button" class="remove-item">X</button>
+                    </div>
+                </div>
+                <button type="button" id="addItem" class="btn btn-secondary">Agregar Ítem</button>
+
+                <h3>Información del Crédito</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="creditoMonto">Monto neto pendiente de pago</label>
+                        <input type="number" id="creditoMonto" value="1038.40" step="0.01">
+                    </div>
+                    <div class="form-group">
+                        <label for="creditoCuotas">Total de Cuotas</label>
+                        <input type="number" id="creditoCuotas" value="1" min="1">
+                    </div>
+                </div>
+                <div id="cuotasContainer" class="items-container">
+                    <div class="item-row">
+                        <input type="number" class="cuota-numero" placeholder="Nº Cuota" value="1" min="1">
+                        <input type="date" class="cuota-fecha" placeholder="Fecha Venc." value="2021-11-04">
+                        <input type="number" class="cuota-monto" placeholder="Monto" value="1038.40" step="0.01">
+                        <button type="button" class="remove-item">X</button>
+                    </div>
+                </div>
+                <button type="button" id="addCuota" class="btn btn-secondary">Agregar Cuota</button>
+
+                <div class="form-group">
+                    <label for="pieNota">Nota al pie</label>
+                    <textarea id="pieNota">Esta es una representación impresa de la factura electrónica, generada en el Sistema de SUNAT. Puede verificarla utilizando su clave SOL.</textarea>
+                </div>
+
+                <div class="controls">
+                    <button type="button" id="verPreview" class="btn">Vista Previa</button>
+                    <button type="button" id="actualizar" class="btn btn-secondary">Actualizar Factura</button>
+                    <button type="reset" id="limpiar" class="btn btn-danger">Limpiar Formulario</button>
+                   
+                </div>
+            </form>
+        </div>
+        
+        <div id="preview-tab" class="tab-content">
+            <div class="factura-container" id="factura">
+                <div class="factura-header">
+                    <div class="factura-titulo">
+                        <h2 id="preview-emisorNombre">NOTICIERO CONTABLE</h2>
+                        <h3 id="preview-emisorRazon">NOTICIERO DEL CONTADOR S.A.C.</h3>
+                        <p id="preview-emisorDireccion">CAL. MARTIR OLAYA 129 DPTO. 1107 ALT CDRA. 01 DE AV. PARDO</p>
+                        <p id="preview-emisorUbicacion">MIRAFLORES - LIMA - LIMA</p>
+                    </div>
+                    <div class="factura-numero">
+                        <h2>FACTURA ELECTRONICA</h2>
+                        <h3>RUC: <span id="preview-emisorRUC">20556106909</span></h3>
+                        <p id="preview-facturaNumero">E001-1213</p>
+                    </div>
+                </div>
+
+                <div class="factura-info">
+                    <div class="factura-info-label">Fecha de Vencimiento</div>
+                    <div class="factura-info-value">: <span id="preview-fechaVencimiento">04/11/2021</span></div>
+                    <div class="forma-pago">Forma de pago: <span id="preview-formaPago">Crédito</span></div>
+                </div>
+
+                <div class="factura-info">
+                    <div class="factura-info-label">Fecha de Emisión</div>
+                    <div class="factura-info-value">: <span id="preview-fechaEmision">05/10/2021</span></div>
+                </div>
+
+                <div class="factura-info">
+                    <div class="factura-info-label">Señor(es)</div>
+                    <div class="factura-info-value">: <span id="preview-clienteNombre">ESTUDIO FERN E.I.R.L.</span></div>
+                </div>
+
+                <div class="factura-info">
+                    <div class="factura-info-label">RUC</div>
+                    <div class="factura-info-value">: <span id="preview-clienteRUC"></span></div>
+                </div>
+
+                <div class="factura-info">
+                    <div class="factura-info-label">Dirección del Receptor de la factura</div>
+                    <div class="factura-info-value">: <span id="preview-clienteDireccionReceptor"></span></div>
+                </div>
+
+                <div class="factura-info">
+                    <div class="factura-info-label">Dirección del Cliente</div>
+                    <div class="factura-info-value">: <span id="preview-clienteDireccion"></span></div>
+                </div>
+
+                <div class="factura-info">
+                    <div class="factura-info-label">Tipo de Moneda</div>
+                    <div class="factura-info-value">: <span id="preview-moneda">SOLES</span></div>
+                </div>
+
+                <div class="factura-info">
+                    <div class="factura-info-label">Observación</div>
+                    <div class="factura-info-value">: <span class="detraccion">DETRACCION (<span id="preview-detraccionPorcentaje">12</span>%): S/ <span id="preview-detraccionMonto">141.60</span></span></div>
+                </div>
+
+                <table class="factura-detalle">
+                    <thead>
+                        <tr>
+                            <th>Cantidad</th>
+                            <th>Unidad Medida</th>
+                            <th>Código</th>
+                            <th>Descripción</th>
+                            <th>Valor Unitario</th>
+                            <th>ICBPER</th>
+                        </tr>
+                    </thead>
+                    <tbody id="preview-items">
+                        <tr>
+                            <td>1.00</td>
+                            <td>UNIDAD</td>
+                            <td>CONTABILIDAD</td>
+                            <td>SERVICIO DE CONTABILIDAD MES SETIEMBRE 2021</td>
+                            <td>1000.00</td>
+                            <td>0.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="factura-totales">
+                    <div class="factura-izquierda">
+                        <div class="factura-info">
+                            <div class="factura-info-label">Valor de Venta de Operaciones Gratuitas</div>
+                            <div class="factura-info-value">: S/ 0.00</div>
+                        </div>
+                        <h3>SON: <span id="preview-montoLetras">UN MIL CIENTO OCHENTA Y 00/100 SOLES</span></h3>
+                    </div>
+                    <div class="factura-derecha">
+                        <table class="totales-tabla">
+                            <tr>
+                                <td>Sub Total Ventas :</td>
+                                <td>S/ <span id="preview-subtotal">1,000.00</span></td>
+                            </tr>
+                            <tr>
+                                <td>Anticipos :</td>
+                                <td>S/ 0.00</td>
+                            </tr>
+                            <tr>
+                                <td>Descuentos :</td>
+                                <td>S/ 0.00</td>
+                            </tr>
+                            <tr>
+                                <td>Valor Venta :</td>
+                                <td>S/ <span id="preview-valorVenta">1,000.00</span></td>
+                            </tr>
+                            <tr>
+                                <td>ISC :</td>
+                                <td>S/ 0.00</td>
+                            </tr>
+                            <tr>
+                                <td>IGV :</td>
+                                <td>S/ <span id="preview-igv">180.00</span></td>
+                            </tr>
+                            <tr>
+                                <td>ICBPER :</td>
+                                <td>S/ <span id="preview-icbperTotal">0.00</span></td>
+                            </tr>
+                            <tr>
+                                <td>Otros Cargos :</td>
+                                <td>S/ 0.00</td>
+                            </tr>
+                            <tr>
+                                <td>Otros Tributos :</td>
+                                <td>S/ 0.00</td>
+                            </tr>
+                            <tr>
+                                <td>Monto de redondeo :</td>
+                                <td>S/ 0.00</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Importe Total :</strong></td>
+                                <td><strong>S/ <span id="preview-total">1,180.00</span></strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="credito-info">
+                    <h3>Información de Pago al Crédito</h3>
+                    <p>Monto neto pendiente de pago: S/ <span id="preview-creditoMonto">1038.40</span></p>
+                    <table class="credito-detalle">
+                        <thead>
+                            <tr>
+                                <th>Nº Cuota</th>
+                                <th>Fecha Vencimiento</th>
+                                <th>Monto</th>
+                            </tr>
+                        </thead>
+                        <tbody id="preview-cuotas">
+                            <tr>
+                                <td>1</td>
+                                <td>04/11/2021</td>
+                                <td>S/ 1,038.40</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="nota-pie" id="preview-pieNota">
+                    Esta es una representación impresa de la factura electrónica, generada en el Sistema de SUNAT. Puede verificarla utilizando su clave SOL.
+                </div>
+            </div>
+            
+            <div class="btn-container">
+                <button type="button" id="volver" class="btn">Volver a Editar</button>
+                <button type="button" id="downloadPDF2" class="btn btn-secondary">Descargar PDF</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./src/js/scriptFactura.js"></script>
+</body>
+</html>

@@ -1,0 +1,367 @@
+/* Estilos generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+body {
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+/* Layout de la aplicación */
+.app-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+/* Panel de edición */
+.edit-panel {
+    flex: 1;
+    min-width: 500px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.edit-panel h2 {
+    margin-bottom: 20px;
+    color: #333;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+
+.form-section {
+    margin-bottom: 25px;
+}
+
+.form-section h3 {
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #555;
+}
+
+.form-group {
+    margin-bottom: 12px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    width: 150px;
+    font-size: 14px;
+    color: #666;
+}
+
+.form-group input {
+    flex: 1;
+    min-width: 250px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Tabla de edición de ítems */
+.items-edit-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+}
+
+.items-edit-table th {
+    background-color: #f5f5f5;
+    padding: 8px;
+    text-align: left;
+    font-size: 14px;
+    color: #444;
+}
+
+.items-edit-table td {
+    padding: 5px;
+}
+
+.items-edit-table input {
+    width: 100%;
+    padding: 6px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+/* Botones */
+.btn-primary, .btn-success, .btn-delete {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.btn-primary {
+    background-color: #4a7bff;
+    color: white;
+}
+
+.btn-success {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.btn-delete {
+    background-color: #e74c3c;
+    color: white;
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+.btn-primary:hover, .btn-success:hover {
+    opacity: 0.9;
+}
+
+.btn-delete:hover {
+    background-color: #c0392b;
+}
+
+.actions-bar {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+/* Panel de vista previa */
+.preview-panel {
+    flex: 1;
+    min-width: 600px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.preview-panel h2 {
+    margin-bottom: 20px;
+    color: #333;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+
+/* Estilos para la boleta en vista previa */
+.container {
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 0;
+}
+
+/* Estilos para la tabla principal */
+.main-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-bottom: 1px solid #ccc;
+}
+
+.left-header {
+    width: 60%;
+    padding: 15px;
+    vertical-align: top;
+}
+
+.right-header {
+    width: 40%;
+    padding: 15px;
+    border-left: 1px solid #ccc;
+    vertical-align: top;
+}
+
+.company-info h3, .document-info h3 {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.company-info p {
+    margin-bottom: 5px;
+    font-size: 12px;
+}
+
+.document-info {
+    text-align: center;
+}
+
+.document-info p {
+    margin-bottom: 5px;
+    font-size: 13px;
+}
+
+.document-number {
+    color: blue;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Estilos para la tabla de detalles */
+.details-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-bottom: 1px solid #ccc;
+}
+
+.details-table tr {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.details-table tr:last-child {
+    border-bottom: none;
+}
+
+.label {
+    width: 15%;
+    padding: 8px 10px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: right;
+    vertical-align: top;
+}
+
+.value {
+    padding: 8px 10px;
+    font-size: 12px;
+}
+
+/* Estilos para la tabla de items */
+.items-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+}
+
+.items-table th {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 8px;
+    font-size: 11px;
+    text-align: center;
+}
+
+.items-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.items-table td:nth-child(4) {
+    text-align: left;
+}
+
+/* Estilos para la tabla de totales */
+.totals-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.total-label {
+    width: 85%;
+    text-align: right;
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+.total-value {
+    width: 15%;
+    text-align: right;
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+.final {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Diseño responsive */
+@media (max-width: 1200px) {
+    .app-container {
+        flex-direction: column;
+    }
+    
+    .edit-panel, .preview-panel {
+        width: 100%;
+        min-width: unset;
+    }
+}
+/* Estilo adicional para garantizar que todo el contenido sea visible en el PDF */
+#pdf-content {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    page-break-inside: avoid;
+    page-break-after: auto;
+}
+
+.main-table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+}
+
+.items-table {
+    width: 100%;
+    border-collapse: collapse;
+    page-break-inside: avoid;
+    margin-bottom: 15px;
+}
+
+.items-table th, .items-table td {
+    border: 1px solid #000;
+    padding: 5px;
+    text-align: center;
+    font-size: 12px;
+}
+
+.totals-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+/* Asegurar que cada sección tenga suficiente espacio */
+.container {
+    padding: 15px;
+    background-color: white;
+}
+
+/* Asegurar que el preview panel tenga suficiente espacio para mostrar toda la boleta */
+.preview-panel {
+    overflow: visible;
+    min-height: 800px;
+}
+
+/* Añadir estilos para impresión */
+@media print {
+    body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    
+    #pdf-content {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+

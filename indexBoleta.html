@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Boletas Electrónicas</title>
+    <link rel="stylesheet" href="src/css/stylesBoleta.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+</head>
+<body>
+    <h1>Sistema de Generación Boleta de Venta Electronica</h1>
+    <div class="app-container">
+          
+        <div class="edit-panel">
+            <h2>Editar Boleta</h2>
+            
+            <div class="form-section">
+                <h3>Datos de la Empresa</h3>
+                <div class="form-group">
+                    <label for="empresa">Nombre de la Empresa:</label>
+                    <input type="text" id="empresa" value="NOTICIERO DEL CONTADOR S.A.C.">
+                </div>
+                <div class="form-group">
+                    <label for="direccion">Dirección:</label>
+                    <input type="text" id="direccion" value="CAL. JOAQUÍN CAPELLO 547 203 ZONA">
+                </div>
+                <div class="form-group">
+                    <label for="ubicacion">Ubicación:</label>
+                    <input type="text" id="ubicacion" value="MIRAFLORES - LIMA - LIMA">
+                </div>
+                <div class="form-group">
+                    <label for="ruc">RUC:</label>
+                    <input type="text" id="ruc" value="20556106909">
+                </div>
+                <div class="form-group">
+                    <label for="num-boleta">Número de Boleta:</label>
+                    <input type="text" id="num-boleta" value="EB01-1">
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h3>Datos del Cliente</h3>
+                <div class="form-group">
+                    <label for="fecha-emision">Fecha de Emisión:</label>
+                    <input type="text" id="fecha-emision" value="04/08/2015">
+                </div>
+                <div class="form-group">
+                    <label for="fecha-vencimiento-input">Fecha de Vencimiento:</label>
+                    <input type="text" id="fecha-vencimiento-input">
+                </div>
+                <div class="form-group">
+                    <label for="cliente">Señor(es):</label>
+                    <input type="text" id="cliente" value="ISABEL ALBENIA FIGUERDO MELO">
+                </div>
+                <div class="form-group">
+                    <label for="dni">DNI:</label>
+                    <input type="text" id="dni" value="47869080">
+                </div>
+                <div class="form-group">
+                    <label for="moneda">Tipo de Moneda:</label>
+                    <input type="text" id="moneda" value="NUEVOS SOLES">
+                </div>
+                <div class="form-group">
+                    <label for="observacion">Observación:</label>
+                    <input type="text" id="observacion" value="SERVICIO PRESTADO EN MIRAFLORES">
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h3>Ítems</h3>
+                <table class="items-edit-table">
+                    <thead>
+                        <tr>
+                            <th>Cantidad</th>
+                            <th>Unidad</th>
+                            <th>Código</th>
+                            <th>Descripción</th>
+                            <th>Valor Unit.</th>
+                            <th>Descuento</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="items-tbody">
+                        <!-- Los ítems se añaden dinámicamente aquí -->
+                    </tbody>
+                </table>
+                <button id="add-item" class="btn-primary">Añadir Ítem</button>
+            </div>
+            
+            <div class="form-section">
+                <h3>Otros valores</h3>
+                <div class="form-group">
+                    <label for="otros-cargos">Otros Cargos:</label>
+                    <input type="number" id="otros-cargos" value="0.00" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label for="otros-tributos">Otros Tributos:</label>
+                    <input type="number" id="otros-tributos" value="0.00" step="0.01">
+                </div>
+            </div>
+            
+            <div class="actions-bar">
+                <button id="update-preview" class="btn-primary">Actualizar Vista Previa</button>
+                <button id="download-pdf" class="btn-success">Descargar PDF</button>
+            </div>
+        </div>
+        
+        <!-- Vista previa de la boleta -->
+        <div class="preview-panel">
+            <h2>Vista Previa</h2>
+            <div id="boleta-preview">
+                <div class="container" id="pdf-content">
+                    <table class="main-table">
+                        <tr>
+                            <td class="left-header">
+                                <div class="company-info">
+                                    <h3 id="preview-empresa">NOTICIERO DEL CONTADOR S.A.C.</h3>
+                                    <p id="preview-direccion">CAL. JOAQUÍN CAPELLO 547 203 ZONA</p>
+                                    <p id="preview-ubicacion">MIRAFLORES - LIMA - LIMA</p>
+                                </div>
+                            </td>
+                            <td class="right-header">
+                                <div class="document-info">
+                                    <h3>BOLETA DE VENTA ELECTRÓNICA</h3>
+                                    <p>RUC: <span id="preview-ruc">20556106909</span></p>
+                                    <p class="document-number" id="preview-num-boleta">EB01-1</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+            
+                    <table class="details-table">
+                        <tr>
+                            <td class="label">Fecha de Vencimiento:</td>
+                            <td class="value" id="preview-fecha-vencimiento"></td>
+                        </tr>
+                        <tr>
+                            <td class="label">Fecha de Emisión:</td>
+                            <td class="value" id="preview-fecha-emision">04/08/2015</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Señor(es):</td>
+                            <td class="value" id="preview-cliente">ISABEL ALBENIA FIGUERDO MELO</td>
+                        </tr>
+                        <tr>
+                            <td class="label">DNI:</td>
+                            <td class="value" id="preview-dni">47869080</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Tipo de Moneda:</td>
+                            <td class="value" id="preview-moneda">NUEVOS SOLES</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Observación:</td>
+                            <td class="value" id="preview-observacion">SERVICIO PRESTADO EN MIRAFLORES</td>
+                        </tr>
+                    </table>
+            
+                    <table class="items-table">
+                        <thead>
+                            <tr>
+                                <th>Cantidad</th>
+                                <th>Unidad Medida</th>
+                                <th>Código</th>
+                                <th>Descripción</th>
+                                <th>Valor Unitario(*)</th>
+                                <th>Descuento(*)</th>
+                                <th>Importe de Venta(**)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="preview-items">
+                            <!-- Los ítems se mostrarán aquí dinámicamente -->
+                        </tbody>
+                    </table>
+            
+                    <table class="totals-table">
+                        <tr>
+                            <td class="total-label">Otros Cargos:</td>
+                            <td class="total-value" id="preview-otros-cargos">0.00</td>
+                        </tr>
+                        <tr>
+                            <td class="total-label">Otros Tributos:</td>
+                            <td class="total-value" id="preview-otros-tributos">0.00</td>
+                        </tr>
+                        <tr>
+                            <td class="total-label final">Importe Total:</td>
+                            <td class="total-value final" id="preview-total">S/. 0.00</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Template para nuevos ítems -->
+    <template id="item-template">
+        <tr class="item-row">
+            <td><input type="number" class="item-cantidad" value="1.00" step="0.01" min="0"></td>
+            <td><input type="text" class="item-unidad" value="UNIDAD"></td>
+            <td><input type="text" class="item-codigo" value=""></td>
+            <td><input type="text" class="item-descripcion" value=""></td>
+            <td><input type="number" class="item-valor" value="0.00" step="0.01" min="0"></td>
+            <td><input type="number" class="item-descuento" value="0.00" step="0.01" min="0"></td>
+            <td><button class="btn-delete">Eliminar</button></td>
+        </tr>
+    </template>
+    <script src="./src/js/scriptBoleta.js"></script>
+
+</body>
+</html>

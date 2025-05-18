@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Remisión Electrónica</title>
+    <link rel="stylesheet" href="src/css/stylesRemitente.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- FORMULARIO DE EDICIÓN -->
+        <div class="form-container">
+            <h2>Editar Guía de Remisión</h2>
+            
+            <div class="buttons-container">
+                <button id="downloadBtn">Descargar PDF</button>
+            </div>
+            
+            <div class="form-section">
+                <h3>Información de la Empresa</h3>
+                <div class="form-group">
+                    <label for="logoInput">Logo de la empresa:</label>
+                    <input type="file" id="logoInput" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label for="nombreEmpresa">Nombre de la empresa:</label>
+                    <input type="text" id="nombreEmpresa" value="MULTIDISTRIBUCIONES">
+                </div>
+                <div class="form-group">
+                    <label for="razonSocial">Razón social:</label>
+                    <input type="text" id="razonSocial" value="EMPRESA SIMPLE SAC">
+                </div>
+                <div class="form-group">
+                    <label for="rucEmpresa">RUC:</label>
+                    <input type="text" id="rucEmpresa" value="20200200200">
+                </div>
+                <div class="form-group">
+                    <label for="numeroGuia">Número de guía:</label>
+                    <input type="text" id="numeroGuia" value="TS01-00000022">
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h3>Direcciones</h3>
+                <div class="form-group">
+                    <label for="direccionFiscal">Dirección fiscal:</label>
+                    <textarea id="direccionFiscal">Manzana X lote 5 (1er.piso) Urb.Covicortti Trujillo - Trujillo - La Libertad</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="sucursal">Sucursal:</label>
+                    <textarea id="sucursal">Av. Husares de Junin 1249 La Merced III Trujillo - Trujillo- La Libertad</textarea>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h3>Información de Traslado</h3>
+                <div class="form-group">
+                    <label for="fechaTraslado">Fecha de inicio de traslado:</label>
+                    <input type="date" id="fechaTraslado" value="2024-09-20">
+                </div>
+                <div class="form-group">
+                    <label for="destinatario">Destinatario:</label>
+                    <input type="text" id="destinatario" value="JAYCO SOCIEDAD ANONIMA CERRADA">
+                </div>
+                <div class="form-group">
+                    <label for="rucDestinatario">RUC destinatario:</label>
+                    <input type="text" id="rucDestinatario" value="20602640281">
+                </div>
+                <div class="form-group">
+                    <label for="puntoPartida">Punto de partida:</label>
+                    <textarea id="puntoPartida">150141 - AV LOS GERANIOS 330</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="puntoLlegada">Punto de llegada:</label>
+                    <textarea id="puntoLlegada">150140 - AV. CAMINOS DEL INCA NRO. 3140 DPTO. 401 URB. PROLONGACIÓN BENAVIDES - LIMA LIMA SANTIAGO DE SURCO</textarea>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h3>Motivo de Traslado</h3>
+                <div class="checkbox-group">
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="venta" checked>
+                        <label for="venta">Venta</label>
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="ventaConfirmacion">
+                        <label for="ventaConfirmacion">Venta sujeta a confirmación del comprador</label>
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="compra">
+                        <label for="compra">Compra</label>
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="trasladoEstablecimiento">
+                        <label for="trasladoEstablecimiento">Traslado entre establecimientos de la misma</label>
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="importacion">
+                        <label for="importacion">Importación</label>
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="trasladoEmisor">
+                        <label for="trasladoEmisor">Traslado emisor itinerante CP</label>
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="exportacion">
+                        <label for="exportacion">Exportación</label>
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="trasladoZonaPrimaria">
+                        <label for="trasladoZonaPrimaria">Traslado a zona primaria</label>
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="otros">
+                        <label for="otros">Otros</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h3>Datos del Producto</h3>
+                <table class="product-form-table" id="productFormTable">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Descripción</th>
+                            <th>Cantidad</th>
+                            <th>Unidad</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="text" class="productCode" value="CF_600/04"></td>
+                            <td><input type="text" class="productDescription" value="CUCHARITA(600/04) DE TE MODELO 600"></td>
+                            <td><input type="number" class="productQuantity" value="10"></td>
+                            <td><input type="text" class="productUnit" value="DOCENA"></td>
+                            <td><button class="removeProductBtn">X</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button id="addRowBtn">Agregar Producto</button>
+            </div>
+            
+            <div class="form-section">
+                <h3>Transporte</h3>
+                <div class="form-group">
+                    <label for="placaVehiculo">Placa del vehículo:</label>
+                    <input type="text" id="placaVehiculo">
+                </div>
+                <div class="form-group">
+                    <label for="dniConductor">DNI del Conductor:</label>
+                    <input type="text" id="dniConductor">
+                </div>
+                <div class="form-group">
+                    <label for="modalidadTransporte">Modalidad de transporte:</label>
+                    <select id="modalidadTransporte">
+                        <option value="TRANSPORTE PRIVADO" selected>TRANSPORTE PRIVADO</option>
+                        <option value="TRANSPORTE PÚBLICO">TRANSPORTE PÚBLICO</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="pesoTotal">Peso Total Aprox. (KGM):</label>
+                    <input type="number" id="pesoTotal" value="50">
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h3>Observaciones</h3>
+                <div class="form-group">
+                    <textarea id="observaciones">Doc. Referencia: Factura:F001-00000067</textarea>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h3>Otros Datos</h3>
+                <div class="form-group">
+                    <label for="resolucion">Resolución:</label>
+                    <input type="text" id="resolucion" value="0340050007241">
+                </div>
+            </div>
+        </div>
+        
+        <!-- VISTA PREVIA -->
+        <div class="preview-container">
+            <div id="guiaRemision" class="guia-remision">
+                <div class="header">
+                    <div class="logo-container">
+                        <img id="logoPreview" src="placeholder-logo.png" alt="Logo de empresa">
+                        <div class="logo-text">TU LOGO AQUÍ</div>
+                    </div>
+                    <div class="company-info">
+                        <h2 id="nombreEmpresaPreview">MULTIDISTRIBUCIONES</h2>
+                        <p id="razonSocialPreview">EMPRESA SIMPLE SAC</p>
+                        <p>R.U.C. <span id="rucEmpresaPreview">20200200200</span></p>
+                    </div>
+                    <div class="guide-info">
+                        <h3>GUÍA DE REMISIÓN</h3>
+                        <h3>ELECTRÓNICA REMITENTE</h3>
+                        <p>N° <span id="numeroGuiaPreview">TS01-00000022</span></p>
+                    </div>
+                </div>
+
+                <div class="address-info">
+                    <p>
+                        <strong>Dirección fiscal:</strong> 
+                        <span id="direccionFiscalPreview">Manzana X lote 5 (1er.piso) Urb.Covicortti Trujillo - Trujillo - La Libertad</span>
+                    </p>
+                    <p>
+                        <strong>Sucursal:</strong> 
+                        <span id="sucursalPreview">Av. Husares de Junin 1249 La Merced III Trujillo - Trujillo- La Libertad</span>
+                    </p>
+                </div>
+
+                <div class="shipping-info">
+                    <div class="info-row">
+                        <div class="info-col">
+                            <p><strong>Fecha de inicio de traslado:</strong> <span id="fechaTrasladoPreview">20/09/2024</span></p>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-col">
+                            <p><strong>Destinatario:</strong> <span id="destinatarioPreview">JAYCO SOCIEDAD ANONIMA CERRADA</span></p>
+                        </div>
+                        <div class="info-col">
+                            <p><strong>Punto de partida:</strong> <span id="puntoPartidaPreview">150141 - AV LOS GERANIOS 330</span></p>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-col">
+                            <p><strong>RUC:</strong> <span id="rucDestinatarioPreview">20602640281</span></p>
+                        </div>
+                        <div class="info-col">
+                            <p><strong>Punto de llegada:</strong> <span id="puntoLlegadaPreview">150140 - AV. CAMINOS DEL INCA NRO. 3140 DPTO. 401 URB. PROLONGACIÓN BENAVIDES - LIMA LIMA SANTIAGO DE SURCO</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reason-section">
+                    <p><strong>Motivo de traslado</strong></p>
+                    <div class="reason-options">
+                        <div class="checkbox-row">
+                            <label class="reason-label" id="ventaPreview">
+                                ☑ Venta
+                            </label>
+                            <label class="reason-label" id="ventaConfirmacionPreview">
+                                ☐ Venta sujeta a confirmación del comprador
+                            </label>
+                            <label class="reason-label" id="compraPreview">
+                                ☐ Compra
+                            </label>
+                            <label class="reason-label" id="trasladoEstablecimientoPreview">
+                                ☐ Traslado entre establecimientos de la misma
+                            </label>
+                        </div>
+                        <div class="checkbox-row">
+                            <label class="reason-label" id="importacionPreview">
+                                ☐ Importación
+                            </label>
+                            <label class="reason-label" id="trasladoEmisorPreview">
+                                ☐ Traslado emisor itinerante CP
+                            </label>
+                            <label class="reason-label" id="exportacionPreview">
+                                ☐ Exportación
+                            </label>
+                            <label class="reason-label" id="trasladoZonaPrimariaPreview">
+                                ☐ Traslado a zona primaria
+                            </label>
+                        </div>
+                        <div class="checkbox-row">
+                            <label class="reason-label" id="otrosPreview">
+                                ☐ Otros
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="products-section">
+                    <p><strong>Datos del bien transportado</strong></p>
+                    <table id="productTablePreview">
+                        <thead>
+                            <tr>
+                                <th>N°</th>
+                                <th>CÓDIGO</th>
+                                <th>DESCRIPCIÓN</th>
+                                <th>CANTIDAD</th>
+                                <th>UNIDAD DE DESPACHO</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>CF_600/04</td>
+                                <td>CUCHARITA(600/04) DE TE MODELO 600</td>
+                                <td>10</td>
+                                <td>DOCENA</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="transport-section">
+                    <p><strong>UNIDAD DE TRANSPORTE Y CONDUCTOR</strong></p>
+                    <div class="transport-info">
+                        <div class="transport-row">
+                            <label>Placa del vehículo:</label>
+                            <span id="placaVehiculoPreview" class="transport-value"></span>
+                        </div>
+                        <div class="transport-row">
+                            <label>DNI del Conductor:</label>
+                            <span id="dniConductorPreview" class="transport-value"></span>
+                        </div>
+                    </div>
+                    <div class="transport-info">
+                        <div class="transport-row">
+                            <label>Modalidad de transporte:</label>
+                            <span id="modalidadTransportePreview" class="transport-value">TRANSPORTE PRIVADO</span>
+                        </div>
+                        <div class="transport-row">
+                            <label>Peso Total Aprox. (KGM):</label>
+                            <span id="pesoTotalPreview" class="transport-value">50</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="observations-section">
+                    <p><strong>Observaciones</strong></p>
+                    <p id="observacionesPreview">Doc. Referencia: Factura:F001-00000067</p>
+                </div>
+
+                <div class="footer">
+                    <div class="qr-section">
+                        <img src="qr-placeholder.png" alt="Código QR" id="qrCode">
+                        <p>Representación Impresa de la <strong>GUÍA DE REMISIÓN ELECTRÓNICA</strong></p>
+                        <p>Autorizado mediante Resolución <span id="resolucionPreview">0340050007241</span></p>
+                        <p class="thanks"><strong>GRACIAS POR SU COMPRA!</strong></p>
+                        <p class="important-note"><strong>** NOTA IMPORTANTE**</strong></p>
+                        <p class="no-returns"><strong>NO SE ACEPTAN DEVOLUCIONES</strong></p>
+                    </div>
+                    <div class="confirmation-section">
+                        <div class="signature-line"></div>
+                        <p class="confirmation-text">Conformidad del cliente:</p>
+                        <p class="confirmation-name">Nombre:</p>
+                        <p class="confirmation-dni">DNI:</p>
+                    </div>
+                </div>
+
+                <div class="disclaimer">
+                    <p>LA MERCADERÍA VIAJA POR CUENTA Y RIESGO DEL COMPRADOR NO ADMITIMOS RECLAMO POR ROBO O AVERÍA</p>
+                    <div class="mifact-info">
+                        <p>Documento diseñado por <img src="mifact-logo.png" alt="MiFact Logo" class="mifact-logo"> Proveedor de facturación electrónica - www.mifact.net</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="./src/js/scriptRemitente.js"></script>
+</body>
+</html>
